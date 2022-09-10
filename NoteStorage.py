@@ -1,18 +1,6 @@
 import pickle
 
-class NoteStorage:
-    def save(self, object):
-        NotImplementedError("You must define a save function")
-
-    
-    def restore(self):
-        NotImplementedError("You must define a restore function")
-    
-    def set_file_name(self, name):
-        NotImplementedError("You must define a set _file_name function")
-
-
-class LocalStorage(NoteStorage):
+class NotesStorage:
     def __init__(self, file_name: str = 'data.bin') -> None:
         self.__file_name = file_name
         
