@@ -29,7 +29,7 @@ class NoteBook():
         return notes_for_choose
         
     
-    def add_note(self, Note):
+    def add(self, Note):
 
         if Note not in self.data:
             self.data.append(Note)
@@ -38,34 +38,6 @@ class NoteBook():
         else:
             return "Note is already exist!"
 
-
-    def find_by_note(self, text_of_note):
-
-        result = []
-
-        for note in self.data:
-            if text_of_note in note.text:
-                result.append(note)
-
-        if result == []:
-            return "No notes were found"
-
-        else:
-            return result
-
-
-    def find_by_tag(self, tag):
-        result = []
-        for note in self.data:
-            if tag in note.tags:
-                result.append(note)
-
-        if result == []:
-            return "No tags were found"
-
-        else:
-            return result
-            
 
     def add_tag(self, new_tag):
 
@@ -80,7 +52,35 @@ class NoteBook():
             return "Tag is already exist!"
 
 
-    def remove_tag(self, removing_tag):
+    def search_notes(self, text_of_note):
+
+        result = []
+
+        for note in self.data:
+            if text_of_note in note.text:
+                result.append(note)
+
+        if result == []:
+            return "No notes were found"
+
+        else:
+            return result
+
+
+    def search_notes_by_tags(self, tag):
+        result = []
+        for note in self.data:
+            if tag in note.tags:
+                result.append(note)
+
+        if result == []:
+            return "No tags were found"
+
+        else:
+            return result
+
+
+    def delete_tag(self, removing_tag):
         notes_with_tag = self.find_by_tag(removing_tag)
 
         if notes_with_tag=='No tags were found':
@@ -99,7 +99,7 @@ class NoteBook():
         return f"Tag {removing_tag} was removed successfully"
 
 
-    def remove_note(self, text_of_note):
+    def delete_note(self, text_of_note):
         notes_with_text = self.find_by_note(text_of_note)
 
         if notes_with_text == "No notes were found":
@@ -118,7 +118,7 @@ class NoteBook():
         return f"Note was removed successfully"
         
 
-    def edit_note(self, old_text, new_text):
+    def edit(self, old_text, new_text):
         notes_with_text = self.find_by_note(old_text)
 
         if notes_with_text == "No notes were found":
@@ -141,7 +141,7 @@ class NoteBook():
         return ''
 
 
-    def sort_by_tags(self, tag):  
+    def sort_notes_by_tags(self, tag):  
         new_self_data = deque()
         for note in self.data:
             if tag in note.tags:
