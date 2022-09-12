@@ -4,6 +4,7 @@ from assistant_command import AssistantCommand
 from address_book_service import AddressBookService
 from local_storage import LocalStorage
 
+
 def main():
     message = ''
     storage = LocalStorage()
@@ -16,7 +17,7 @@ def main():
             command = parser.get_command()
             value = parser.get_value()
             message = assistant.handle(command, value)
-            
+
             if message:
                 print(message)
 
@@ -24,4 +25,4 @@ def main():
                 break
         except:
             print("Type 'help' to see the commands.")
-main()
+# main()
