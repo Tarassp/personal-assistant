@@ -1,9 +1,17 @@
 from run_address_book import run_address_book
 from run_notebook import run_notebook
 
+start_assistent = """\nWelcome to your personal assistant!
+Personal assistant menu:
+    1. NoteBook 
+    2. AddressBook
+    3. FolderCleaner
+Enter the section number from the personal assistant menu: \n"""
+
+
 def main():
     while True:
-        line = input("Enter your option: ")
+        line = input(start_assistent)
         match line:
             case '1':
                 run_notebook()
@@ -15,5 +23,6 @@ def main():
                 break
             case _:
                 print('Wrong command')
-                
+
+
 main()
