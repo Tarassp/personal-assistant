@@ -86,3 +86,7 @@ class NoteBook():
                     sorted_dict.get(tag).append(note.text)
         
         return sorted_dict 
+
+    
+    def show_all(self):
+        self.__repr__()
