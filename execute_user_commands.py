@@ -8,17 +8,16 @@ handlers = {
     "search_text": "search_text_handler",
     "add_tags": "add_tags_hndler",
     "search_by_tags": "search_by_tag_handler",
+    "show_all": "show_all_handler",
     "sort": "sort_handler",
     "back": "back_handler",
-    "exit": "exit_handler",
 }
 
 
 class CliNotes:
     def __init__(self) -> None:
-        self.notesbook = NotesBook()
+        self.notesbook = NoteBook()
         self.parser = Pars_Notes()
-        self.cli = CLI()
 
     def add_handler(self):
         while True:
@@ -66,7 +65,7 @@ class CliNotes:
         print(search_notes_with_number[0])
         note_by_number = self.define_note_by_number(
             search_notes_with_number[1])
-        self.notesbook.delete_note(note_by_number.text)
+        self.notesbook.delete_note(note_by_number)
         return "Note removed!", ""
 
     def search_text_handler(self):
@@ -111,6 +110,9 @@ class CliNotes:
             return ("\n".join(
                 [f"Number: {item[0]}, Tags: {item[1].tags} \nNote: {item[1].text}\n" for item in search_notes_with_number])), ""
 
+    def show_all_handler(self):
+        return self.notesbook.show_all(), ""
+
     def sort_handler(self):
         sort_notes_tags: dict[str:[list[str]]
                               ] = self.notesbook.sort_notes_by_tags()
@@ -123,26 +125,18 @@ class CliNotes:
     def back_handler(self):
         return "Exit Notebook app!", ""
 
-    def exit_handler(self):
-        return "Good bye!", ""
-
     def run_notes(self):
         while True:
             try:
                 user_input_command = input(
-                    """Welcome to the note taking app!
-                        Enter the command for working with notes
-                        (add/edit/delet/search_text/add_tags/search_by_tags/sort,
-                        if you want to return to "personal-assistant" enter 'back',
-                        if you want to exit "personal-assistant" enter 'exit'): """)
+                    """Enter the command for working with notes
+                        (add/edit/delet/search_text/show_all/add_tags/search_by_tags/sort,
+                        if you want to return to "personal-assistant" enter 'back',): """)
                 command = self.parser.parser_comand(user_input_command)
                 command_handler = handlers.get(command)
                 command_response = getattr(self, command_handler)()
                 print(command_response[0])
-                if command_response[0] == "Good bye!":
-                    return
-                elif command_response[0] == "Exit Notebook app!":
+                if command_response[0] == "Exit Notebook app!":
                     break
             except ValueError:
                 print("Сommand entered incorrectly!")
-        self.cli.run()
