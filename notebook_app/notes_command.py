@@ -12,7 +12,7 @@ class NotesCommand(Enum):
         SEARCH = ['search']
         SEARCHBYTAG = ['search tag']
         SEARCHSELECTING = ['search selecting']
-        SORTBYTAG = ['sort tag']
+        SORTBYTAGS = ['sort tags']
         HELP = ['help']
         UNKNOWN = ['unknown']
         EXIT = ['exit', 'close', 'good bye']

@@ -1,5 +1,5 @@
 from typing import Optional
-from fields import Phone, Name, Birthday
+from address_book_app.fields import Phone, Name, Birthday
 from datetime import datetime
 import re
 

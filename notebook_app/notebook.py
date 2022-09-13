@@ -1,6 +1,4 @@
-from plistlib import UID
-from xmlrpc.client import Boolean
-from note import Note
+from notebook_app.note import Note
 from uuid import UUID
 
 class Notebook:

@@ -1,6 +1,6 @@
 from typing import Optional
 from datetime import date, datetime
-from assistant_exceptions import IncorrectDateFormat, IncorrectDataFormat, IncorrectPhoneFormat
+from shared.assistant_exceptions import IncorrectDateFormat, IncorrectDataFormat, IncorrectPhoneFormat
 import re
 
 class Field:

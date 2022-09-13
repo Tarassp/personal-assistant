@@ -1,9 +1,10 @@
-from note import Note
-from notebook import Notebook
-from local_storage import StorageInterface
-from notes_command import NotesCommand
-from status import Status
-from error_decorator import *
+from notebook_app.note import Note
+from notebook_app.notebook import Notebook
+from notebook_app.notes_command import NotesCommand
+
+from shared.status import Status
+from shared.error_decorator import *
+from shared.local_storage import StorageInterface
 
 
 class NotebookServide:
@@ -21,7 +22,7 @@ class NotebookServide:
             NotesCommand.SEARCH: self._handle_search,
             NotesCommand.SEARCHBYTAG: self._handle_search_by_tag,
             NotesCommand.SEARCHSELECTING: self._handle_search_selecting,
-            NotesCommand.SORTBYTAG: self._handle_sort_by_tag,
+            NotesCommand.SORTBYTAGS: self._handle_sort_by_tags,
             NotesCommand.DELETE: self._handle_delete,
             NotesCommand.CHANGE: self._handle_change,
             NotesCommand.EXIT: self._handle_exit,
@@ -98,7 +99,7 @@ class NotebookServide:
     def _handle_search_by_tag(self, value: list[str]) -> Status:
         return Status("Not implemented")
     
-    def _handle_sort_by_tag(self, value: list[str]) -> Status:
+    def _handle_sort_by_tags(self, value: list[str]) -> Status:
         return Status("Not implemented")
     
     def _handle_delete(self, value) -> Status:

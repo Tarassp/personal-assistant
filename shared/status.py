@@ -1,4 +1,4 @@
-from notes_command import NotesCommand
+from notebook_app.notes_command import NotesCommand
 
 class Status:
     class Request:

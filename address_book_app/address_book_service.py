@@ -1,10 +1,10 @@
-from address_book import AddressBook
-from assistant_command import AssistantCommand
-from error_decorator import *
-from assistant_exceptions import *
-from fields import Birthday, Phone, Name
-from record import Record
-from local_storage import StorageInterface
+from address_book_app.address_book import AddressBook
+from address_book_app.address_book_command import AddressBookCommand
+from address_book_app.fields import Birthday, Phone, Name
+from address_book_app.record import Record
+from shared.error_decorator import *
+from shared.assistant_exceptions import *
+from shared.local_storage import StorageInterface
 
 
 class AddressBookService:
@@ -13,20 +13,20 @@ class AddressBookService:
         self.address_book = address_book
         self._storage = storage
         self._handlers = {
-            AssistantCommand.HELLO: self._handle_hello,
-            AssistantCommand.ADD: self._handle_add,
-            AssistantCommand.CHANGE: self._handle_change,
-            AssistantCommand.PHONE: self._handle_phone,
-            AssistantCommand.SHOW: self._handle_show,
-            AssistantCommand.SEARCH: self._handle_search,
-            AssistantCommand.SAVE: self._handle_save,
-            AssistantCommand.LOAD: self._handle_open,
-            AssistantCommand.EXIT: self._handle_exit,
-            AssistantCommand.HELP: self._handle_help,
-            AssistantCommand.UNKNOWN: self._handle_unknown
+            AddressBookCommand.HELLO: self._handle_hello,
+            AddressBookCommand.ADD: self._handle_add,
+            AddressBookCommand.CHANGE: self._handle_change,
+            AddressBookCommand.PHONE: self._handle_phone,
+            AddressBookCommand.SHOW: self._handle_show,
+            AddressBookCommand.SEARCH: self._handle_search,
+            AddressBookCommand.SAVE: self._handle_save,
+            AddressBookCommand.LOAD: self._handle_open,
+            AddressBookCommand.EXIT: self._handle_exit,
+            AddressBookCommand.HELP: self._handle_help,
+            AddressBookCommand.UNKNOWN: self._handle_unknown
         }
     
-    def handle(self, command: AssistantCommand, value: list[str]) -> str:
+    def handle(self, command: AddressBookCommand, value: list[str]) -> str:
         handler = self.get_handler(command)
         return handler(value)
     
@@ -116,7 +116,7 @@ class AddressBookService:
         return 'Incorrect Command!!!'
     
     @input_error
-    def get_handler(self, command: AssistantCommand):
-        if command is AssistantCommand.UNKNOWN:
+    def get_handler(self, command: AddressBookCommand):
+        if command is AddressBookCommand.UNKNOWN:
             raise UnknownAssistentCommand
         return self._handlers[command]

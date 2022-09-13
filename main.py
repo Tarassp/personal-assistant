@@ -1,14 +1,24 @@
-from run_address_book import run_address_book
-from run_notebook import run_notebook
+from address_book_app.address_book_client import AddressBookClient
+from notebook_app.notebook_client import NotebookClient
+
+welcome_message = """\nWelcome to your personal assistant!
+Personal assistant menu:
+    1. NoteBook 
+    2. AddressBook
+    3. FolderCleaner
+    4. Exit from personal assistant
+Enter the section number from the personal assistant menu: \n"""
 
 def main():
+    address_book_app = AddressBookClient()
+    notebook_app = NotebookClient()
     while True:
-        line = input("Enter your option: ")
+        line = input(welcome_message)
         match line:
             case '1':
-                run_notebook()
+                notebook_app.run()
             case '2':
-                run_address_book()
+                address_book_app.run()
             case '3':
                 print('RUN CLEANER')
             case '4':

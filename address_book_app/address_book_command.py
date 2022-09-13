@@ -1,7 +1,7 @@
 from enum import Enum, unique
 
 @unique
-class AssistantCommand(Enum):
+class AddressBookCommand(Enum):
         HELLO = ['hello']
         ADD = ['add']
         CHANGE = ['change']
