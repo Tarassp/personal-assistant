@@ -11,19 +11,20 @@ Enter the section number from the personal assistant menu: \n"""
 
 def main():
     address_book_app = AddressBookClient()
-    notebook_app = NotebookClient()
-    while True:
-        line = input(welcome_message)
-        match line:
-            case '1':
-                notebook_app.run()
-            case '2':
-                address_book_app.run()
-            case '3':
-                print('RUN CLEANER')
-            case '4':
-                break
-            case _:
-                print('Wrong command')
+    address_book_app.run()
+    # notebook_app = NotebookClient()
+    # while True:
+    #     line = input(welcome_message)
+    #     match line:
+    #         case '1':
+    #             notebook_app.run()
+    #         case '2':
+    #             address_book_app.run()
+    #         case '3':
+    #             print('RUN CLEANER')
+    #         case '4':
+    #             break
+    #         case _:
+    #             print('Wrong command')
                 
 main()

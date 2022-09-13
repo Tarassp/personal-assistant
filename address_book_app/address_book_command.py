@@ -3,7 +3,13 @@ from enum import Enum, unique
 @unique
 class AddressBookCommand(Enum):
         HELLO = ['hello']
+        SELECT = ['choose']
+        SELECTREQUEST = ['select']
         ADD = ['add']
+        ADDPHONE = ['add phone']
+        SETEMAIL = ['set email']
+        SETADDRESS = ['set address']
+        SETBIRTHDAY = ['set birthday']
         CHANGE = ['change']
         PHONE = ['phone']
         SHOW = ['show all']
@@ -11,8 +17,10 @@ class AddressBookCommand(Enum):
         LOAD = ['load']
         SAVE = ['save']
         SEARCH = ['search']
+        SEARCHSELECTING = ['search selecting']
         HELP = ['help']
         UNKNOWN = ['unknown']
+        NONE = ['none']
         
         @classmethod
         def _missing_(cls, value: str):

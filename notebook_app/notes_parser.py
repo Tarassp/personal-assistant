@@ -2,7 +2,7 @@ from notebook_app.notes_command import NotesCommand
 
 
 class NotesParser:
-    def __init__(self, string: str, reserved_command=NotesCommand.NONE):
+    def __init__(self, string: str, reserved_command = NotesCommand.NONE):
         self._line_parameters = string.split()
         self.quantity_words_in_command = 0
         self.reserved_command = reserved_command

@@ -13,18 +13,31 @@ class AddressBookClient:
         self.service = AddressBookService(self.storage, self.adress_book)
         
     def run(self):
+        hint = "Enter your command: "
+        reserved_command = AddressBookCommand.NONE
+        
         while True:
-            line = input("Enter your command: ")
+            line = input(hint)
             try:
-                parser = AddressBookParser(line)
+                parser = AddressBookParser(line, reserved_command)
                 command = parser.get_command()
                 value = parser.get_value()
-                message = self.service.handle(command, value)
                 
-                if message:
-                    print(message)
-
-                if command is AddressBookCommand.EXIT:
-                    break
-            except:
-                print("Type 'help' to see the commands.")
+                status = self.service.handle(command, value)
+                
+                if status.response:
+                    print(status.response)
+                    
+                if status.request:
+                    hint = status.request.message
+                    reserved_command = status.request.command
+                    continue
+                
+                match command:
+                    case AddressBookCommand.EXIT:
+                        break
+                    case _:
+                        reserved_command = AddressBookCommand.NONE
+                        hint = "Enter your command: "
+            except Exception as e:
+                print(e)

@@ -1,10 +1,15 @@
 from collections import UserDict
+from functools import singledispatch
+from typing import overload
 from address_book_app.fields import Birthday, Phone, Name
 from address_book_app.record import Record
 
 class AddressBook(UserDict):
-    def add_record(self, record: Record):
-        self.data[record.name.value] = record
+    def add_record(self, name: str, phones: list[str]):
+        name_field = Name(name)
+        phones_field = [Phone(v) for v in phones]
+        record = Record(name_field, phones_field)
+        self.data[name_field.value] = record
         
     def remove_record(self, record: Record):
         return self.data.pop(record.name.value)

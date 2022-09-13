@@ -18,6 +18,11 @@ class IncorrectDateFormat(Exception):
         self.message = message
         super().__init__(self.message)
         
+class IncorrectEmailFormat(Exception):
+    def __init__(self, message = "Incorrect email format, should be"):
+        self.message = message
+        super().__init__(self.message)
+        
 class IncorrectPhoneFormat(Exception):
     def __init__(self, message = "Incorrect phone number format, should be '(+)(38)0xxxxxxxxx'"):
         self.message = message

@@ -1,6 +1,6 @@
 from typing import Optional
 from datetime import date, datetime
-from shared.assistant_exceptions import IncorrectDateFormat, IncorrectDataFormat, IncorrectPhoneFormat
+from shared.assistant_exceptions import IncorrectDateFormat, IncorrectDataFormat, IncorrectPhoneFormat, IncorrectEmailFormat
 import re
 
 class Field:
@@ -33,11 +33,24 @@ class Field:
     def __str__(self) -> str:
         return self._value or 'Incorrect value'
     
-    
+class Address(Field):
+    def __str__(self) -> str:
+        return 'Address: ' + super().__str__()
     
 class Name(Field):
     def __str__(self) -> str:
         return 'Name: ' + super().__str__()
+    
+class Email(Field):
+    def _validate(self, value: str) -> bool:
+        regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
+        return re.fullmatch(regex, value) != None
+    
+    def _throw_exeption(self) -> None:
+        raise IncorrectEmailFormat()
+    
+    def __str__(self) -> str:
+        return 'Email: ' + super().__str__()
         
 class Phone(Field):
     
