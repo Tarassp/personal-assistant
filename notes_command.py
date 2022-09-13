@@ -1,18 +1,22 @@
 from enum import Enum, unique
 
 @unique
-class AssistantCommand(Enum):
-        HELLO = ['hello']
+class NotesCommand(Enum):
         ADD = ['add']
+        TAGS = ['tags']
+        SELECTREQUEST = ['select']
+        SELECT = ['choose']
         CHANGE = ['change']
-        PHONE = ['phone']
+        DELETE = ['delete']
         SHOW = ['show all']
-        EXIT = ['exit', 'close', 'good bye']
-        LOAD = ['load']
-        SAVE = ['save']
         SEARCH = ['search']
+        SEARCHBYTAG = ['search tag']
+        SEARCHSELECTING = ['search selecting']
+        SORTBYTAG = ['sort tag']
         HELP = ['help']
         UNKNOWN = ['unknown']
+        EXIT = ['exit', 'close', 'good bye']
+        NONE = ['none']
         
         @classmethod
         def _missing_(cls, value: str):
@@ -26,5 +30,3 @@ class AssistantCommand(Enum):
         @property
         def max_command_words(cls) -> int:
             return 2
-
-    

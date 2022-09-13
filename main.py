@@ -1,27 +1,19 @@
-from address_book import AddressBook
-from assistant_parser import AssistantParser
-from assistant_command import AssistantCommand
-from address_book_service import AddressBookService
-from local_storage import LocalStorage
+from run_address_book import run_address_book
+from run_notebook import run_notebook
 
 def main():
-    message = ''
-    storage = LocalStorage()
-    adress_book = AddressBook()
-    assistant = AddressBookService(storage, adress_book)
     while True:
-        line = input("Enter your command: ")
-        try:
-            parser = AssistantParser(line)
-            command = parser.get_command()
-            value = parser.get_value()
-            message = assistant.handle(command, value)
-            
-            if message:
-                print(message)
-
-            if command is AssistantCommand.EXIT:
+        line = input("Enter your option: ")
+        match line:
+            case '1':
+                run_notebook()
+            case '2':
+                run_address_book()
+            case '3':
+                print('RUN CLEANER')
+            case '4':
                 break
-        except:
-            print("Type 'help' to see the commands.")
+            case _:
+                print('Wrong command')
+                
 main()
