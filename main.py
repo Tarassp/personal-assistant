@@ -6,6 +6,7 @@ Personal assistant menu:
     1. NoteBook 
     2. AddressBook
     3. FolderCleaner
+    4. Exit from personal assistant
 Enter the section number from the personal assistant menu: \n"""
 
 
