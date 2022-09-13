@@ -8,6 +8,7 @@ handlers = {
     "search_text": "search_text_handler",
     "add_tags": "add_tags_hndler",
     "search_by_tags": "search_by_tag_handler",
+    "show_all": "show_all_handler",
     "sort": "sort_handler",
     "back": "back_handler",
 }
@@ -64,7 +65,7 @@ class CliNotes:
         print(search_notes_with_number[0])
         note_by_number = self.define_note_by_number(
             search_notes_with_number[1])
-        self.notesbook.delete_note(note_by_number.text)
+        self.notesbook.delete_note(note_by_number)
         return "Note removed!", ""
 
     def search_text_handler(self):
@@ -109,6 +110,9 @@ class CliNotes:
             return ("\n".join(
                 [f"Number: {item[0]}, Tags: {item[1].tags} \nNote: {item[1].text}\n" for item in search_notes_with_number])), ""
 
+    def show_all_handler(self):
+        return self.notesbook.show_all(), ""
+
     def sort_handler(self):
         sort_notes_tags: dict[str:[list[str]]
                               ] = self.notesbook.sort_notes_by_tags()
@@ -126,7 +130,7 @@ class CliNotes:
             try:
                 user_input_command = input(
                     """Enter the command for working with notes
-                        (add/edit/delet/search_text/add_tags/search_by_tags/sort,
+                        (add/edit/delet/search_text/show_all/add_tags/search_by_tags/sort,
                         if you want to return to "personal-assistant" enter 'back',): """)
                 command = self.parser.parser_comand(user_input_command)
                 command_handler = handlers.get(command)
