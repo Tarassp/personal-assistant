@@ -7,7 +7,7 @@ from shared.local_storage import LocalStorage
 class NotebookClient:
     def __init__(self) -> None:
         self.storage = LocalStorage('Notebook')
-        self.notes = Notebook()
+        self.notes = self.storage.load() or Notebook()
         self.service = NotebookServide(self.storage, self.notes)
         
     def run(self):

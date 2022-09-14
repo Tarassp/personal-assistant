@@ -48,6 +48,7 @@ class NotebookServide:
         self._notebook.add(self._selected_note)
         request = Status.Request(
             'Enter some tag(s) for your note: ', NotesCommand.TAGS)
+        self._storage.save(self._notebook)
         return Status('Note is added successfully!', request)
 
     def _handle_add_tags(self, tags: list[str]) -> Status:
@@ -58,6 +59,7 @@ class NotebookServide:
         self._selected_note = None
         if not tags:
             return Status('You skipped adding tags')
+        self._storage.save(self._notebook)
         if len(tags) > 1:
             return Status('Tags are added successfully!')
         return Status('Tag is added successfully!')
@@ -130,6 +132,7 @@ class NotebookServide:
         if self._selected_note:
             self._notebook.remove(self._selected_note)
             self._selected_note = None
+            self._storage.save(self._notebook)
             return Status("Note is deleted successfully!")
         return Status("You didn't select note yet. Please use SELECT command first.")
 
@@ -137,6 +140,7 @@ class NotebookServide:
         if self._selected_note:
             self._selected_note.append(' '.join(value))
             self._selected_note = None
+            self._storage.save(self._notebook)
             return Status("Note is changed successfully!")
         return Status("You didn't select note yet. Please use SELECT command first.")
 
@@ -161,7 +165,6 @@ class NotebookServide:
     def _handle_help(self, value) -> Status:
         commands = ['ADD <note>', 'TAGS <tag1, tag2 ...>'
                     'SEARCH <text>',
-                    'LOAD <filename>', 'SAVE <filename>',
                     'SHOW ALL', 'GOOD BYE', 'CLOSE', 'EXIT']
         return Status('\n'.join(commands))
 
