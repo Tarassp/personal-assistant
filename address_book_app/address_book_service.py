@@ -140,11 +140,11 @@ class AddressBookService:
     @input_error
     def _handle_search(self, value: list[str]) -> HandlerStatus:
         searched_text = ' '.join(value)
-        records = self._address_book.search(searched_text)
+        self._searched_records = self._address_book.search(searched_text)
         
-        if records:
+        if self._searched_records:
             message = ""
-            for i, v in enumerate(records):
+            for i, v in enumerate(self._searched_records):
                 message += f'{i + 1}. {v}\n'
             message.strip('\n')
             message = "----------------------\n" + message + "----------------------"
@@ -153,16 +153,12 @@ class AddressBookService:
     
     @input_error
     def _handle_show(self, value) -> HandlerStatus:
-        message = ""
-        for i, v in enumerate(self._address_book.values()):
-            message += f'{i + 1}. {v}\n'
+        status = self._handle_search([])
         
-        message.strip('\n')
-        if not message:
-            message = 'Contact list is empty!\n'
-        message = "----------------------\n" + message + "----------------------"
+        if status.response == 'No Results':
+            return HandlerStatus('Contact list is empty!')
         
-        return HandlerStatus(message)
+        return status
     
     def _handle_save(self, value: list[str]):
         if len(value) != 1:
