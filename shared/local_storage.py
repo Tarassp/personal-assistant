@@ -4,11 +4,11 @@ from typing import Protocol
 
 class StorageInterface(Protocol):
     @abstractmethod
-    def save(self, object, filename):
+    def save(self, object, filename = None):
         raise NotImplementedError
     
     @abstractmethod
-    def load(self, filename):
+    def load(self, filename = None):
         raise NotImplementedError
 
 
@@ -21,6 +21,9 @@ class LocalStorage(StorageInterface):
             pickle.dump(object, fh)
             
     def load(self, filename = None):
-        with open(filename or self._default_filename, "rb") as fh:
-            unpacked = pickle.load(fh)
-            return unpacked
+        try:
+            with open(filename or self._default_filename, "rb") as fh:
+                unpacked = pickle.load(fh)
+                return unpacked
+        except:
+            return None
