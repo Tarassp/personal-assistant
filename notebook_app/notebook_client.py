@@ -11,7 +11,8 @@ class NotebookClient:
         self.service = NotebookServide(self.storage, self.notes)
         
     def run(self):
-        hint = "Enter your command: "
+        welcome_message = "\nWelcome to NootBook App!\nEnter the command or type 'help' to see the list of commands: "
+        hint = welcome_message
         reserved_command = NotesCommand.NONE
         
         while True:

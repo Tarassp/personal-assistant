@@ -13,7 +13,7 @@ class AddressBookClient:
         self.service = AddressBookService(self.storage, self.adress_book)
         
     def run(self):
-        welcome_message = "\nWelcome to Address Book App! Enter the command or type 'help' to see the list of commands: "
+        welcome_message = "\nWelcome to Address Book App!\nEnter the command or type 'help' to see the list of commands: "
         hint = welcome_message
         reserved_command = AddressBookCommand.NONE
         
