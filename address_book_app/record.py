@@ -1,5 +1,6 @@
 
 from typing import Optional
+from unicodedata import name
 from address_book_app.fields import Address, Phone, Name, Birthday, Email
 from datetime import datetime
 import re
@@ -55,10 +56,15 @@ class Record:
         return re.search('^\+?\d+$', string) != None
     
     def __str__(self) -> str:
-        phone_list = 'Absent'
+        description = str(name)
+        
         if self.phones:
-            phone_list = ', '.join(map(str, self.phones))
+            description += ', '.join(map(str, self.phones))
+        
+        if self.email:
+            description += str(self.email)
         
         if self.birthday:
-            return '%s, %s, %s' % (self.name, phone_list, self.birthday)
-        return '%s, %s' % (self.name, phone_list)
+            description += str(self.birthday)
+        
+        return description

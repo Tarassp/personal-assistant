@@ -6,6 +6,8 @@ from shared.local_storage import LocalStorage
 
 
 class AddressBookClient:
+    welcome_message = """\nWelcome to Address Book App!
+Enter the command or type 'help' to see the list of commands: """
     
     def __init__(self) -> None:
         self.storage = LocalStorage('AddressBook')
@@ -13,7 +15,7 @@ class AddressBookClient:
         self.service = AddressBookService(self.storage, self.adress_book)
         
     def run(self):
-        hint = "Enter your command: "
+        hint = AddressBookClient.welcome_message
         reserved_command = AddressBookCommand.NONE
         
         while True:
@@ -33,11 +35,10 @@ class AddressBookClient:
                     reserved_command = status.request.command
                     continue
                 
-                match command:
-                    case AddressBookCommand.EXIT:
-                        break
-                    case _:
-                        reserved_command = AddressBookCommand.NONE
-                        hint = "Enter your command: "
+                if command == AddressBookCommand.EXIT:
+                    break
             except Exception as e:
                 print(e)
+            
+            reserved_command = AddressBookCommand.NONE
+            hint = "Enter your command: "

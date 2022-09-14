@@ -17,7 +17,6 @@ class AddressBookService:
         self._searched_records: list[Record] = []
         self._storage = storage
         self._handlers = {
-            AddressBookCommand.HELLO: self._handle_hello,
             AddressBookCommand.ADD: self._handle_add,
             AddressBookCommand.ADDPHONE: self._handle_add_phone,
             AddressBookCommand.SETEMAIL: self._handle_set_email,
@@ -27,6 +26,7 @@ class AddressBookService:
             AddressBookCommand.SELECT: self._handle_select_record,
             AddressBookCommand.CHANGE: self._handle_change,
             AddressBookCommand.PHONE: self._handle_phone,
+            AddressBookCommand.DELETE: self._handle_delete,
             AddressBookCommand.SHOW: self._handle_show,
             AddressBookCommand.SEARCH: self._handle_search,
             AddressBookCommand.SEARCHSELECTING: self._handle_search_selecting,
@@ -36,17 +36,21 @@ class AddressBookService:
             AddressBookCommand.HELP: self._handle_help,
             AddressBookCommand.UNKNOWN: self._handle_unknown
         }
+        
+    @input_error
+    def get_handler(self, command: AddressBookCommand):
+        if command is AddressBookCommand.UNKNOWN:
+            raise UnknownAssistentCommand
+        return self._handlers[command]
     
     def handle(self, command: AddressBookCommand, value: list[str]) -> HandlerStatus:
         handler = self.get_handler(command)
         return handler(value)
-    
-    @input_error
-    def _handle_hello(self, value) -> str:
-        return 'How can I help you?'
-    
+
     def _handle_select_request(self, value: list[str]) -> HandlerStatus:
-        if len(value) == 1:
+        if not len(self._address_book):
+            return HandlerStatus("Address Book is empty. Add some record first.")
+        if len(value) == 1 and int(value[0]) <= len(self._address_book):
             return self._handle_select_record(value)
         request = HandlerStatus.Request(
             'Enter some text to find records or just hit "Enter" to show all records: ', AddressBookCommand.SEARCHSELECTING)
@@ -57,10 +61,10 @@ class AddressBookService:
         if (record_number - 1) < len(self._searched_records):
             self._selected_record = self._searched_records[record_number - 1]
         elif len(self._address_book) > 0:
-            self._selected_record = self._address_book[0]
+            self._selected_record = list(self._address_book.data.values())[0]
         else:
             return HandlerStatus('Cannot select the record because Address Book is empty.')
-        return HandlerStatus('The record is selected. Use <TAGS>, <CHANGE>, or <DELETE> command to work on it')
+        return HandlerStatus('The record is selected. Use <SET EMAIL>, <SET ADDRESS>, <SET BIRTHDAY> or <DELETE> command to work on it')
     
     def _handle_search_selecting(self, value: list[str]) -> HandlerStatus:
         search_status = self._handle_search(value)
@@ -131,11 +135,18 @@ class AddressBookService:
         return message
     
     @input_error
-    def _handle_phone(self, value: list[str]) -> str:
+    def _handle_phone(self, value: list[str]) -> HandlerStatus:
         if len(value) != 1:
             raise UnknownAssistentValue('Give me name.')
         record = self._address_book.find_by_name(Name(value[0])) or "The specified contact does not exist."
-        return str(record) 
+        return HandlerStatus(str(record))
+    
+    def _handle_delete(self, value) -> HandlerStatus:
+        if self._selected_record:
+            self._address_book.remove_record(self._selected_record)
+            self._selected_record = None
+            return HandlerStatus("Record is deleted successfully!")
+        return HandlerStatus("You didn't select a record yet. Please use SELECT command first.")
     
     @input_error
     def _handle_search(self, value: list[str]) -> HandlerStatus:
@@ -160,37 +171,37 @@ class AddressBookService:
         
         return status
     
-    def _handle_save(self, value: list[str]):
+    def _handle_save(self, value: list[str]) -> HandlerStatus:
         if len(value) != 1:
             raise IncorrectFileName()
         self._storage.save(self._address_book, value[0])
-        return 'Address Book saved successfully!'
+        return HandlerStatus('Address Book saved successfully!')
     
-    def _handle_open(self, value: list[str]):
+    def _handle_open(self, value: list[str]) -> HandlerStatus:
         if len(value) != 1:
             raise IncorrectFileName()
         self._address_book = self._storage.load(value[0])
-        return 'Address Book loaded successfully!'
+        return self._handle_show(None)
     
     @input_error
-    def _handle_exit(self, value) -> str:
-        return 'Good bye!'
-
+    def _handle_exit(self, value) -> HandlerStatus:
+        return HandlerStatus('Good bye!')
+    
     @input_error
-    def _handle_help(self, value) -> str:
-        commands = ['HELLO', 'ADD <name> <phone> <phone>...',
-                    'CHANGE <name> <phone>', 'PHONE <name>',
+    def _handle_help(self, value) -> HandlerStatus:
+        commands = ['ADD <name> <phone> <phone>...',
+                    'SELECT',
+                    'SELECT <number of record>',
+                    'SET EMAIL <email>',
+                    'SET ADDRESS <address>',
+                    'SET BIRTHDAY <birthday>',
+                    'DELETE',
                     'SEARCH <text>',
+                    'CHANGE <name> <phone>', 'PHONE <name>',
                     'LOAD <filename>', 'SAVE <filename>',
                     'SHOW ALL', 'GOOD BYE', 'CLOSE', 'EXIT']
-        return '\n'.join(commands)
+        return HandlerStatus('\n'.join(commands))
     
     @input_error
     def _handle_unknown(value) -> str:
         return 'Incorrect Command!!!'
-    
-    @input_error
-    def get_handler(self, command: AddressBookCommand):
-        if command is AddressBookCommand.UNKNOWN:
-            raise UnknownAssistentCommand
-        return self._handlers[command]

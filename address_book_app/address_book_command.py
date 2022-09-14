@@ -2,7 +2,6 @@ from enum import Enum, unique
 
 @unique
 class AddressBookCommand(Enum):
-        HELLO = ['hello']
         SELECT = ['choose']
         SELECTREQUEST = ['select']
         ADD = ['add']
@@ -12,6 +11,7 @@ class AddressBookCommand(Enum):
         SETBIRTHDAY = ['set birthday']
         CHANGE = ['change']
         PHONE = ['phone']
+        DELETE = ['delete']
         SHOW = ['show all']
         EXIT = ['exit', 'close', 'good bye']
         LOAD = ['load']

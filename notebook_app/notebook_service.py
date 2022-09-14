@@ -113,8 +113,7 @@ class NotebookServide:
         return Status('No Results')
 
     def _handle_sort_by_tags(self, value) -> Status:
-        sort_by_tags_dict: dict[str: list[Note]
-                                ] = self._notebook.sort_by_tags()
+        sort_by_tags_dict: dict[str: list[Note]] = self._notebook.sort_by_tags()
         message = ""
         for tag, notes in sort_by_tags_dict.items():
             message += f"Notes by tag '{tag}':\n"
