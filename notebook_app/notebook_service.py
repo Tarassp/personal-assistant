@@ -163,8 +163,14 @@ class NotebookServide:
 
     @input_error
     def _handle_help(self, value) -> Status:
-        commands = ['ADD <note>', 'TAGS <tag1, tag2 ...>'
+        commands = ['ADD <note>', 'TAGS <tag1, tag2 ...>',
+                    'SELECT',
+                    'SELECT <number of note>',
+                    'CHANGE <text>'
                     'SEARCH <text>',
+                    'SEARCH TAG <tag>'
+                    'SORT TAGS',
+                    'DELETE',
                     'SHOW ALL', 'GOOD BYE', 'CLOSE', 'EXIT']
         return Status('\n'.join(commands))
 
