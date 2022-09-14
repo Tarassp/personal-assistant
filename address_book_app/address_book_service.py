@@ -78,6 +78,7 @@ class AddressBookService:
         if len(value) < 2:
             raise UnknownAssistentValue('Give me a name and phone number(s) please.')
         self._address_book.add_record(value[0], value[1:])
+        self._storage.save(self._address_book)
         return HandlerStatus('Contact added successfully!')
     
     def _handle_add_phone(self, value: list[str]) -> HandlerStatus:
@@ -89,6 +90,7 @@ class AddressBookService:
             return HandlerStatus("You didn't select record yet. Please use SELECT command first.")
         self._selected_record = None
         
+        self._storage.save(self._address_book)
         if len(value) > 1:
             return HandlerStatus('Phones are added successfully!')
         return HandlerStatus('Phone is added successfully!')
@@ -101,7 +103,7 @@ class AddressBookService:
         else:
             return HandlerStatus("You didn't select record yet. Please use SELECT command first.")
         self._selected_record = None
-        
+        self._storage.save(self._address_book)
         return HandlerStatus('Email is set successfully!')
     
     def _handle_set_address(self, value: list[str]) -> HandlerStatus:
@@ -112,6 +114,7 @@ class AddressBookService:
         else:
             return HandlerStatus("You didn't select record yet. Please use SELECT command first.")
         self._selected_record = None
+        self._storage.save(self._address_book)
         return HandlerStatus('Address is set successfully!')
         
     def _handle_set_birthday(self, value: list[str]) -> HandlerStatus:
@@ -122,6 +125,7 @@ class AddressBookService:
         else:
             return HandlerStatus("You didn't select record yet. Please use SELECT command first.")
         self._selected_record = None
+        self._storage.save(self._address_book)
         return HandlerStatus('Birthday is set successfully!')
 
     @input_error
@@ -145,6 +149,7 @@ class AddressBookService:
         if self._selected_record:
             self._address_book.remove_record(self._selected_record)
             self._selected_record = None
+            self._storage.save(self._address_book)
             return HandlerStatus("Record is deleted successfully!")
         return HandlerStatus("You didn't select a record yet. Please use SELECT command first.")
     
