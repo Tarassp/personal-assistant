@@ -93,26 +93,39 @@ class NotebookServide:
         if self._searched_notes:
             message = ""
             for i, v in enumerate(self._searched_notes):
-                message += f'{i + 1}. {v}\n'
+                message += f'\t{i + 1}. {v}\n'
             message.strip('\n')
             message = "----------------------\n" + message + "----------------------"
             return Status(message)
         return Status('No Results')
 
+    @input_error
     def _handle_search_by_tag(self, value: list[str]) -> Status:
         searched_text_tag = ' '.join(value)
         self._searched_notes = self._notebook.search_by_tag(searched_text_tag)
         if self._searched_notes:
             message = ""
             for i, v in enumerate(self._searched_notes):
-                message += f'{i + 1}. {v}\n'
+                message += f'\t{i + 1}. {v}\n'
             message.strip('\n')
             message = "----------------------\n" + message + "----------------------"
             return Status(message)
         return Status('No Results')
 
-    def _handle_sort_by_tags(self, value: list[str]) -> Status:
-        return Status("Not implemented")
+    def _handle_sort_by_tags(self, value) -> Status:
+        sort_by_tags_dict: dict[str: list[Note]
+                                ] = self._notebook.sort_by_tags()
+        message = ""
+        for tag, notes in sort_by_tags_dict.items():
+            message += f"Notes by tag '{tag}':\n"
+            for i, v in enumerate(notes):
+                message += f'\t{i + 1}. {v}\n'
+
+        message.strip('\n')
+        if not message:
+            message = 'Note List is empty!\n'
+        message = "----------------------\n" + message + "----------------------"
+        return Status(message)
 
     def _handle_delete(self, value) -> Status:
         if self._selected_note:
@@ -132,7 +145,7 @@ class NotebookServide:
     def _handle_show_all(self, value) -> Status:
         message = ""
         for i, v in enumerate(self._notebook._notes):
-            message += f'{i + 1}. {v}\n'
+            message += f'\t{i + 1}. {v}\n'
 
         message.strip('\n')
         if not message:
