@@ -1,5 +1,5 @@
-from personal_assistant.address_book_app.address_book_command import AddressBookCommand
-from personal_assistant.notebook_app.notes_command import NotesCommand
+from personal_assistant_g9_007.address_book_app.address_book_command import AddressBookCommand
+from personal_assistant_g9_007.notebook_app.notes_command import NotesCommand
 
 class Status:
     class Request:

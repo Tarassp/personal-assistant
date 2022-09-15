@@ -1,12 +1,12 @@
 from typing import Optional
-from personal_assistant.address_book_app.address_book import AddressBook
-from personal_assistant.address_book_app.address_book_command import AddressBookCommand
-from personal_assistant.address_book_app.fields import Birthday, Phone, Name
-from personal_assistant.address_book_app.record import Record
-from personal_assistant.shared.error_decorator import *
-from personal_assistant.shared.assistant_exceptions import *
-from personal_assistant.shared.local_storage import StorageInterface
-from personal_assistant.shared.status import HandlerStatus
+from personal_assistant_g9_007.address_book_app.address_book import AddressBook
+from personal_assistant_g9_007.address_book_app.address_book_command import AddressBookCommand
+from personal_assistant_g9_007.address_book_app.fields import Birthday, Phone, Name
+from personal_assistant_g9_007.address_book_app.record import Record
+from personal_assistant_g9_007.shared.error_decorator import *
+from personal_assistant_g9_007.shared.assistant_exceptions import *
+from personal_assistant_g9_007.shared.local_storage import StorageInterface
+from personal_assistant_g9_007.shared.status import HandlerStatus
 
 
 class AddressBookService:

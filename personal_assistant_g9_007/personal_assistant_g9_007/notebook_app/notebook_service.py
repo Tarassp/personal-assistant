@@ -1,10 +1,10 @@
-from personal_assistant.notebook_app.note import Note
-from personal_assistant.notebook_app.notebook import Notebook
-from personal_assistant.notebook_app.notes_command import NotesCommand
+from personal_assistant_g9_007.notebook_app.note import Note
+from personal_assistant_g9_007.notebook_app.notebook import Notebook
+from personal_assistant_g9_007.notebook_app.notes_command import NotesCommand
 
-from personal_assistant.shared.status import Status
-from personal_assistant.shared.error_decorator import *
-from personal_assistant.shared.local_storage import StorageInterface
+from personal_assistant_g9_007.shared.status import Status
+from personal_assistant_g9_007.shared.error_decorator import *
+from personal_assistant_g9_007.shared.local_storage import StorageInterface
 
 
 class NotebookServide:
@@ -19,6 +19,7 @@ class NotebookServide:
             NotesCommand.SELECTREQUEST: self._handle_select_request,
             NotesCommand.SELECT: self._handle_select_note,
             NotesCommand.SHOW: self._handle_show_all,
+            NotesCommand.SHOWSELECTED: self._handle_show_selected,
             NotesCommand.SEARCH: self._handle_search,
             NotesCommand.SEARCHBYTAG: self._handle_search_by_tag,
             NotesCommand.SEARCHSELECTING: self._handle_search_selecting,
@@ -65,7 +66,9 @@ class NotebookServide:
         return Status('Tag is added successfully!')
 
     def _handle_select_request(self, value: list[str]) -> Status:
-        if len(value) == 1:
+        if not len(self._notebook):
+            return Status("Notebook is empty. Add some note first.")
+        if len(value) == 1 and int(value[0]) <= len(self._notebook):
             return self._handle_select_note(value)
         request = Status.Request(
             'Enter some text to find notes or just hit "Enter" to show all notes: ', NotesCommand.SEARCHSELECTING)
@@ -73,7 +76,7 @@ class NotebookServide:
 
     def _handle_search_selecting(self, value: list[str]) -> Status:
         search_status = self._handle_search(value)
-        if search_status.response.lower() != 'no result':
+        if search_status.response.lower() != 'no results':
             search_status.request = Status.Request(
                 'Enter the note number: ', NotesCommand.SELECT)
         return search_status
@@ -82,11 +85,14 @@ class NotebookServide:
         note_number = int(value[0])
         if (note_number - 1) < len(self._searched_notes):
             self._selected_note = self._searched_notes[note_number - 1]
-        elif len(self._notebook) > 0:
-            self._selected_note = self._notebook[0]
+        elif note_number <= len(self._notebook):
+            self._selected_note = self._notebook[note_number - 1]
         else:
-            return Status('Cannot select the note because Notebook is empty.')
-        return Status('The note is selted. Use <TAGS>, <CHANGE>, or <DELETE> command to work on it')
+            if len(self._notebook) == 0:
+                return Status('Cannot select the note because Notebook is empty.')
+            else:
+                return Status('You entered wrong record number.')
+        return Status(f'{self._selected_note}\nUse <TAGS>, <CHANGE>, or <DELETE> command to work on it')
 
     @input_error
     def _handle_search(self, value: list[str]) -> Status:
@@ -95,7 +101,7 @@ class NotebookServide:
         if self._searched_notes:
             message = ""
             for i, v in enumerate(self._searched_notes):
-                message += f'\t{i + 1}. {v}\n'
+                message += f'{i + 1}. {v}\n'
             message.strip('\n')
             message = "----------------------\n" + message + "----------------------"
             return Status(message)
@@ -108,7 +114,7 @@ class NotebookServide:
         if self._searched_notes:
             message = ""
             for i, v in enumerate(self._searched_notes):
-                message += f'\t{i + 1}. {v}\n'
+                message += f'{i + 1}. {v}\n'
             message.strip('\n')
             message = "----------------------\n" + message + "----------------------"
             return Status(message)
@@ -120,7 +126,7 @@ class NotebookServide:
         for tag, notes in sort_by_tags_dict.items():
             message += f"Notes by tag '{tag}':\n"
             for i, v in enumerate(notes):
-                message += f'\t{i + 1}. {v}\n'
+                message += f'{i + 1}. {v}\n'
 
         message.strip('\n')
         if not message:
@@ -143,12 +149,17 @@ class NotebookServide:
             self._storage.save(self._notebook)
             return Status("Note is changed successfully!")
         return Status("You didn't select note yet. Please use SELECT command first.")
+    
+    def _handle_show_selected(self, value) -> Status:
+        if self._selected_note:
+            return Status(str(self._selected_note))
+        return Status("You didn't select record yet. Please use SELECT command first.")
 
     @input_error
     def _handle_show_all(self, value) -> Status:
         message = ""
         for i, v in enumerate(self._notebook._notes):
-            message += f'\t{i + 1}. {v}\n'
+            message += f'{i + 1}. {v}\n'
 
         message.strip('\n')
         if not message:
@@ -170,6 +181,7 @@ class NotebookServide:
                     'SEARCH <text>',
                     'SEARCH TAG <tag>'
                     'SORT TAGS',
+                    'SELECTED',
                     'DELETE',
                     'SHOW ALL', 'GOOD BYE', 'CLOSE', 'EXIT']
         return Status('\n'.join(commands))

@@ -1,8 +1,8 @@
-from personal_assistant.notebook_app.notes_command import NotesCommand
-from personal_assistant.notebook_app.notes_parser import NotesParser
-from personal_assistant.notebook_app.notebook_service import NotebookServide
-from personal_assistant.notebook_app.notebook import Notebook
-from personal_assistant.shared.local_storage import LocalStorage
+from personal_assistant_g9_007.notebook_app.notes_command import NotesCommand
+from personal_assistant_g9_007.notebook_app.notes_parser import NotesParser
+from personal_assistant_g9_007.notebook_app.notebook_service import NotebookServide
+from personal_assistant_g9_007.notebook_app.notebook import Notebook
+from personal_assistant_g9_007.shared.local_storage import LocalStorage
 
 class NotebookClient:
     def __init__(self) -> None:
@@ -11,7 +11,7 @@ class NotebookClient:
         self.service = NotebookServide(self.storage, self.notes)
         
     def run(self):
-        welcome_message = "\nWelcome to NootBook App!\nEnter the command or type 'help' to see the list of commands: "
+        welcome_message = "Welcome to NootBook App!\nEnter the command or type 'help' to see the list of commands: "
         hint = welcome_message
         reserved_command = NotesCommand.NONE
         

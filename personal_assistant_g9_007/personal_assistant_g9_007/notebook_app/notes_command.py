@@ -10,6 +10,7 @@ class NotesCommand(Enum):
     CHANGE = ['change']
     DELETE = ['delete']
     SHOW = ['show all']
+    SHOWSELECTED = ['selected']
     SEARCH = ['search']
     SEARCHBYTAG = ['search tag']
     SEARCHSELECTING = ['search selecting']

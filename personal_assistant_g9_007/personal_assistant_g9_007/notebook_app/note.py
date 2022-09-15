@@ -20,4 +20,4 @@ class Note:
 
     def __str__(self) -> str:
         tgs = ' '.join(self.tags) if self.tags else ' - '
-        return 'Tags: %s\n\t   Note: %s' % (tgs, self.text)
+        return 'Note: %s\n   Tags: %s' % (self.text, tgs)
