@@ -28,6 +28,7 @@ class AddressBookService:
             AddressBookCommand.PHONE: self._handle_phone,
             AddressBookCommand.DELETE: self._handle_delete,
             AddressBookCommand.SHOW: self._handle_show,
+            AddressBookCommand.SHOWSELECTED: self._handle_show_selected,
             AddressBookCommand.SEARCH: self._handle_search,
             AddressBookCommand.SEARCHSELECTING: self._handle_search_selecting,
             AddressBookCommand.SAVE: self._handle_save,
@@ -60,15 +61,18 @@ class AddressBookService:
         record_number = int(value[0])
         if (record_number - 1) < len(self._searched_records):
             self._selected_record = self._searched_records[record_number - 1]
-        elif len(self._address_book) > 0:
-            self._selected_record = list(self._address_book.data.values())[0]
+        elif record_number <= len(self._address_book):
+            self._selected_record = list(self._address_book.data.values())[record_number - 1]
         else:
-            return HandlerStatus('Cannot select the record because Address Book is empty.')
-        return HandlerStatus('The record is selected. Use <SET EMAIL>, <SET ADDRESS>, <SET BIRTHDAY> or <DELETE> command to work on it')
+            if len(self._address_book) == 0:
+                return HandlerStatus('Cannot select the record because Address Book is empty.')
+            else:
+                return HandlerStatus('You entered wrong record number.')
+        return HandlerStatus(f'{self._selected_record}.\nUse <SET EMAIL>, <SET ADDRESS>, <SET BIRTHDAY> or <DELETE> command to work on it')
     
     def _handle_search_selecting(self, value: list[str]) -> HandlerStatus:
         search_status = self._handle_search(value)
-        if search_status.response.lower() != 'no result':
+        if search_status.response.lower() != 'no results':
             search_status.request = HandlerStatus.Request(
                 'Enter the record number: ', AddressBookCommand.SELECT)
         return search_status
@@ -167,6 +171,11 @@ class AddressBookService:
             return HandlerStatus(message)
         return HandlerStatus('No Results')
     
+    def _handle_show_selected(self, value) -> HandlerStatus:
+        if self._selected_record:
+            return HandlerStatus(str(self._selected_record))
+        return HandlerStatus("You didn't select record yet. Please use SELECT command first.")
+    
     @input_error
     def _handle_show(self, value) -> HandlerStatus:
         status = self._handle_search([])
@@ -204,6 +213,7 @@ class AddressBookService:
                     'SEARCH <text>',
                     'CHANGE <name> <phone>', 'PHONE <name>',
                     'LOAD <filename>', 'SAVE <filename>',
+                    'SELECTED',
                     'SHOW ALL', 'GOOD BYE', 'CLOSE', 'EXIT']
         return HandlerStatus('\n'.join(commands))
     

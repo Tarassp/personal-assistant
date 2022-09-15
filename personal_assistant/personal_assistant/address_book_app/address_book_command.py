@@ -13,6 +13,7 @@ class AddressBookCommand(Enum):
         PHONE = ['phone']
         DELETE = ['delete']
         SHOW = ['show all']
+        SHOWSELECTED = ['selected']
         EXIT = ['exit', 'close', 'good bye']
         LOAD = ['load']
         SAVE = ['save']

@@ -54,15 +54,18 @@ class Record:
         return re.search('^\+?\d+$', string) != None
     
     def __str__(self) -> str:
-        description = str(name)
+        description = str(self.name)
         
         if self.phones:
-            description += ', '.join(map(str, self.phones))
+            description +=  ' ' + ', '.join(map(str, self.phones))
+        
+        if self.address:
+            description += ' ' + str(self.address)
         
         if self.email:
-            description += str(self.email)
+            description += ' ' + str(self.email)
         
         if self.birthday:
-            description += str(self.birthday)
+            description += ' ' + str(self.birthday)
         
         return description
