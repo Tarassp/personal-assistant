@@ -1,4 +1,4 @@
-from shared.assistant_exceptions import *
+from personal_assistant.shared.assistant_exceptions import *
 
 def input_error(func):
     def inner(*args, **kwargs):

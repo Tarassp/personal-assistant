@@ -1,4 +1,4 @@
-from notebook_app.notes_command import NotesCommand
+from personal_assistant.notebook_app.notes_command import NotesCommand
 
 
 class NotesParser:

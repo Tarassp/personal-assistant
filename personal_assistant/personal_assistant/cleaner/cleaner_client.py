@@ -1,6 +1,6 @@
-from cleaner.folder_cleaner import FolderCleaner
-from cleaner.logger import FileLogger
-from cleaner.normalizer import *
+from personal_assistant.cleaner.folder_cleaner import FolderCleaner
+from personal_assistant.cleaner.logger import FileLogger
+from personal_assistant.cleaner.normalizer import *
 import sys
 
 class CleanerClient:

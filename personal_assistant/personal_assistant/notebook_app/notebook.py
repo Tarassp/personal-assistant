@@ -1,4 +1,4 @@
-from notebook_app.note import Note
+from personal_assistant.notebook_app.note import Note
 from uuid import UUID
 from collections import defaultdict
 

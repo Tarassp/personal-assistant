@@ -1,7 +1,5 @@
-
 from typing import Optional
-from unicodedata import name
-from address_book_app.fields import Address, Phone, Name, Birthday, Email
+from personal_assistant.address_book_app.fields import Address, Phone, Name, Birthday, Email
 from datetime import datetime
 import re
 

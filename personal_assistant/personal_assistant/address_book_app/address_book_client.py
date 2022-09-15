@@ -1,8 +1,8 @@
-from address_book_app.address_book import AddressBook
-from address_book_app.address_book_parser import AddressBookParser
-from address_book_app.address_book_command import AddressBookCommand
-from address_book_app.address_book_service import AddressBookService
-from shared.local_storage import LocalStorage
+from personal_assistant.address_book_app.address_book import AddressBook
+from personal_assistant.address_book_app.address_book_parser import AddressBookParser
+from personal_assistant.address_book_app.address_book_command import AddressBookCommand
+from personal_assistant.address_book_app.address_book_service import AddressBookService
+from personal_assistant.shared.local_storage import LocalStorage
 
 
 class AddressBookClient:

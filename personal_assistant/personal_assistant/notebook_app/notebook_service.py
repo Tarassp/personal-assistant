@@ -1,10 +1,10 @@
-from notebook_app.note import Note
-from notebook_app.notebook import Notebook
-from notebook_app.notes_command import NotesCommand
+from personal_assistant.notebook_app.note import Note
+from personal_assistant.notebook_app.notebook import Notebook
+from personal_assistant.notebook_app.notes_command import NotesCommand
 
-from shared.status import Status
-from shared.error_decorator import *
-from shared.local_storage import StorageInterface
+from personal_assistant.shared.status import Status
+from personal_assistant.shared.error_decorator import *
+from personal_assistant.shared.local_storage import StorageInterface
 
 
 class NotebookServide:

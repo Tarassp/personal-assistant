@@ -1,6 +1,6 @@
-from cleaner.normalizer import *
-from cleaner.file_types import *
-from cleaner.logger import *
+from personal_assistant.cleaner.normalizer import *
+from personal_assistant.cleaner.file_types import *
+from personal_assistant.cleaner.logger import *
 from pathlib import Path
 import shutil
 
