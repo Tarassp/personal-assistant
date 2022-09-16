@@ -1,4 +1,4 @@
-from personal_assistant_g9_007.address_book_app.address_book_command import AddressBookCommand
+from personal_assistant_g9.address_book_app.address_book_command import AddressBookCommand
 class AddressBookParser:
     def __init__(self, string: str, reserved_command = AddressBookCommand.NONE):
         self._line_parameters = string.split()

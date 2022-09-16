@@ -1,6 +1,6 @@
-from personal_assistant_g9_007.address_book_app.address_book_client import AddressBookClient
-from personal_assistant_g9_007.notebook_app.notebook_client import NotebookClient
-from personal_assistant_g9_007.cleaner.cleaner_client import CleanerClient
+from personal_assistant_g9.address_book_app.address_book_client import AddressBookClient
+from personal_assistant_g9.notebook_app.notebook_client import NotebookClient
+from personal_assistant_g9.cleaner.cleaner_client import CleanerClient
 import os
 
 

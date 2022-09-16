@@ -1,6 +1,6 @@
 from collections import UserDict
-from personal_assistant_g9_007.address_book_app.fields import Birthday, Phone, Name
-from personal_assistant_g9_007.address_book_app.record import Record
+from personal_assistant_g9.address_book_app.fields import Birthday, Phone, Name
+from personal_assistant_g9.address_book_app.record import Record
 
 class AddressBook(UserDict):
     def add_record(self, name: str, phones: list[str]):

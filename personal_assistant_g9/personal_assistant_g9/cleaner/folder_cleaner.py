@@ -1,6 +1,6 @@
-from personal_assistant_g9_007.cleaner.normalizer import *
-from personal_assistant_g9_007.cleaner.file_types import *
-from personal_assistant_g9_007.cleaner.logger import *
+from personal_assistant_g9.cleaner.normalizer import *
+from personal_assistant_g9.cleaner.file_types import *
+from personal_assistant_g9.cleaner.logger import *
 from pathlib import Path
 import shutil
 

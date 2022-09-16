@@ -1,10 +1,10 @@
-from personal_assistant_g9_007.notebook_app.note import Note
-from personal_assistant_g9_007.notebook_app.notebook import Notebook
-from personal_assistant_g9_007.notebook_app.notes_command import NotesCommand
+from personal_assistant_g9.notebook_app.note import Note
+from personal_assistant_g9.notebook_app.notebook import Notebook
+from personal_assistant_g9.notebook_app.notes_command import NotesCommand
 
-from personal_assistant_g9_007.shared.status import Status
-from personal_assistant_g9_007.shared.error_decorator import *
-from personal_assistant_g9_007.shared.local_storage import StorageInterface
+from personal_assistant_g9.shared.status import Status
+from personal_assistant_g9.shared.error_decorator import *
+from personal_assistant_g9.shared.local_storage import StorageInterface
 
 
 class NotebookServide:

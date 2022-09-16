@@ -1,8 +1,8 @@
-from personal_assistant_g9_007.notebook_app.notes_command import NotesCommand
-from personal_assistant_g9_007.notebook_app.notes_parser import NotesParser
-from personal_assistant_g9_007.notebook_app.notebook_service import NotebookServide
-from personal_assistant_g9_007.notebook_app.notebook import Notebook
-from personal_assistant_g9_007.shared.local_storage import LocalStorage
+from personal_assistant_g9.notebook_app.notes_command import NotesCommand
+from personal_assistant_g9.notebook_app.notes_parser import NotesParser
+from personal_assistant_g9.notebook_app.notebook_service import NotebookServide
+from personal_assistant_g9.notebook_app.notebook import Notebook
+from personal_assistant_g9.shared.local_storage import LocalStorage
 
 class NotebookClient:
     def __init__(self) -> None:
