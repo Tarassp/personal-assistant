@@ -3,9 +3,9 @@ from personal_assistant_g9.address_book_app.address_book_parser import AddressBo
 from personal_assistant_g9.address_book_app.address_book_command import AddressBookCommand
 from personal_assistant_g9.address_book_app.address_book_service import AddressBookService
 from personal_assistant_g9.shared.local_storage import LocalStorage
+from personal_assistant_g9.shared.client import Client
 
-
-class AddressBookClient:
+class AddressBookClient(Client):
     
     def __init__(self) -> None:
         self.storage = LocalStorage('address_book.bin')
