@@ -1,4 +1,4 @@
-from personal_assistant_g9.notebook_app.note import Note
+from notebook_app.note import Note
 from uuid import UUID
 from collections import defaultdict
 
@@ -26,7 +26,7 @@ class Notebook:
     def search_by_tag(self, tag: str) -> list[Note]:
         return list(filter(lambda note: tag in note.tags, self._notes))
 
-    def sort_by_tags(self) -> dict[str: list[Note]]:
+    def sort_by_tags(self) -> dict[str : list[Note]]:
         sort_dict = defaultdict(list)
         for note in self._notes:
             [sort_dict[tag].append(note) for tag in note.tags]

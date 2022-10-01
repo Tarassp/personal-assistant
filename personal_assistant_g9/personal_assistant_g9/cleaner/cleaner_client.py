@@ -1,20 +1,18 @@
-from personal_assistant_g9.cleaner.folder_cleaner import FolderCleaner
-from personal_assistant_g9.cleaner.logger import FileLogger
-from personal_assistant_g9.cleaner.normalizer import *
+from cleaner.folder_cleaner import FolderCleaner
+from cleaner.logger import FileLogger
+from cleaner.normalizer import *
 import sys
 
-class CleanerClient:
 
+class CleanerClient:
     def run(self):
         hint = "Enter a full path to a directory or type 'exit': "
         while True:
             line = input(hint)
-            
-            if line.lower() == 'exit':
+
+            if line.lower() == "exit":
                 break
-            
+
             cleaner = FolderCleaner(line, NameNormalizer(), FileLogger())
             cleaner.clean()
-            print('Done!')
-
-    
+            print("Done!")

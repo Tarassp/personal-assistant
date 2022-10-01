@@ -1,9 +1,9 @@
-from personal_assistant_g9.notebook_app.notes_command import NotesCommand
-from personal_assistant_g9.notebook_app.notes_parser import NotesParser
-from personal_assistant_g9.notebook_app.notebook_service import NotebookServide
-from personal_assistant_g9.notebook_app.notebook import Notebook
-from personal_assistant_g9.shared.local_storage import LocalStorage
-from personal_assistant_g9.shared.client import Client
+from shared.cli_command import CLICommand
+from shared.parser import CLIParser
+from notebook_app.notebook_service import NotebookServide
+from notebook_app.notebook import Notebook
+from shared.local_storage import LocalStorage
+from shared.client import Client
 
 
 class NotebookClient(Client):
@@ -15,12 +15,12 @@ class NotebookClient(Client):
     def run(self):
         welcome_message = "Welcome to NootBook App!\nEnter the command or type 'help' to see the list of commands: "
         hint = welcome_message
-        reserved_command = NotesCommand.NONE
+        reserved_command = CLICommand.NONE
 
         while True:
             line = input(hint)
             try:
-                parser = NotesParser(line, reserved_command)
+                parser = CLIParser(line, reserved_command)
                 command = parser.get_command()
                 value = parser.get_value()
 
@@ -35,10 +35,10 @@ class NotebookClient(Client):
                     continue
 
                 match command:
-                    case NotesCommand.EXIT:
+                    case CLICommand.EXIT:
                         break
                     case _:
-                        reserved_command = NotesCommand.NONE
+                        reserved_command = CLICommand.NONE
                         hint = "Enter your command: "
             except Exception as e:
                 print(e)
