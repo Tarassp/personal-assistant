@@ -1,4 +1,4 @@
-from cli_command import CLICommand
+from shared.cli_command import CLICommand
 
 
 class Status:

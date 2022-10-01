@@ -1,5 +1,4 @@
-from typing import Optional
-from datetime import date, datetime
+from datetime import datetime
 from shared.assistant_exceptions import (
     IncorrectDateFormat,
     IncorrectDataFormat,

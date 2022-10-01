@@ -1,5 +1,5 @@
 from collections import UserDict
-from address_book_app.fields import Birthday, Phone, Name
+from address_book_app.fields import Phone, Name
 from address_book_app.record import Record
 
 

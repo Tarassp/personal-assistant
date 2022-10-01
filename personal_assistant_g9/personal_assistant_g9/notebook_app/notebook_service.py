@@ -1,13 +1,13 @@
 from notebook_app.note import Note
 from notebook_app.notebook import Notebook
+from shared.client import Service
 from shared.cli_command import CLICommand
-
 from shared.status import Status
 from shared.error_decorator import *
 from shared.local_storage import Storage
 
 
-class NotebookServide:
+class NotebookService(Service):
     def __init__(self, storage: Storage, notes: Notebook) -> None:
         self._notebook = notes
         self._searched_notes: list[Note] = []

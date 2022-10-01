@@ -1,12 +1,21 @@
 from cleaner.folder_cleaner import FolderCleaner
 from cleaner.logger import FileLogger
 from cleaner.normalizer import *
+from shared.client import Client
+from shared.service import Service
 import sys
 
 
-class CleanerClient:
+class CleanerClient(Client):
+    @property
+    def message(self) -> str:
+        return "Welcome to Folder Cleaner App!\nEnter a full path to a directory or type 'exit': "
+
+    def factory_method(self) -> Service:
+        return None
+
     def run(self):
-        hint = "Enter a full path to a directory or type 'exit': "
+        hint = self.message
         while True:
             line = input(hint)
 

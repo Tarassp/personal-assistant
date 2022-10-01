@@ -1,7 +1,8 @@
 from typing import Optional
 from address_book_app.address_book import AddressBook
+from shared.client import Service
 from shared.cli_command import CLICommand
-from address_book_app.fields import Birthday, Phone, Name
+from address_book_app.fields import Name
 from address_book_app.record import Record
 from shared.error_decorator import *
 from shared.assistant_exceptions import *
@@ -9,7 +10,7 @@ from shared.local_storage import Storage
 from shared.status import Status
 
 
-class AddressBookService:
+class AddressBookService(Service):
     def __init__(self, storage: Storage, address_book: AddressBook) -> None:
         self._address_book = address_book
         self._selected_record: Optional[Record] = None
